@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
+</header>
+
+<body>
+<div class="notice-area">
+    📢 처음이신가요? <a href="help.html">클릭</a>
+</div>
+
+<div class="title-area">
+  <a href="login.html"><b>1. 로그인</b></a> > <a href="submit.html">2. 수강신청</a>
+</div>
+
+<div class="contents-area">
+    <form target="hiddenFrame" action="http://sugang.inu.ac.kr/jsp/loginCheck.jsp" method="post">
+        <label>
+            <input type="text" name="stuno" placeholder="학번">
+        </label>
+        <label>
+            <input type="password" name="pwd" placeholder="비밀번호">
+        </label>
+
+        <button class="submit-button" type="submit">로그인</button>
+    </form>
+
+    <p>↓ 결과가 이 안에 표시됩니다.</p>
+    <iframe name="hiddenFrame"></iframe>
+
+    <a href="submit.html">
+        <button class="button">다음으로 넘어가기(수강신청)</button>
+    </a>
+</div>
+</body>
+
+</html>

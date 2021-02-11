@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link type="text/css" href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
+</header>
+
+<body>
+<div class="notice-area">
+    📢 처음이신가요? <a href="help.html">클릭</a>
+</div>
+
+<div class="title-area">
+    <a href="login.html">1. 로그인</a> > <a href="submit.html"><b>2. 수강신청</b></a>
+</div>
+
+<div class="contents-area">
+    <div id="forms">
+        <!-- Will be filled after onLoad -->
+    </div>
+
+    <button class="button" onclick="addField();">학수번호 추가하기</button>
+
+    <!-- The submit-all button -->
+    <button id="submitAllButton" class="submit-button" onclick="submitAll();"></button>
+
+    <p>↓ 결과가 이 안에 표시됩니다.</p>
+    <iframe name="hiddenFrame"></iframe>
+
+    <a href="login.html">
+        <button class="button">뒤로 가기(로그인)</button>
+    </a>
+</div>
+</body>
+
+</html>
