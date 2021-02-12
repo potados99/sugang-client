@@ -1,6 +1,7 @@
 window.onload = function() {
     addField();
     trimAllTextInputs();
+    checkIfBrowserIsCompatible();
 };
 
 const state = {
@@ -13,17 +14,6 @@ function addField() {
 
     // Invoke this for the newly added form.
     trimAllTextInputs();
-}
-
-function trimAllTextInputs() {
-    const inputs = document.getElementsByTagName('input');
-    for (const input of inputs) {
-        if (input.type === 'text') {
-            input.onchange = function() {
-                this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
-            };
-        }
-    }
 }
 
 function _createAndAppendForm() {
@@ -47,6 +37,25 @@ function _updateSubmitAllButton() {
     const numberOfForms = formsContainer.childElementCount;
     const submitAllButton = document.getElementById('submitAllButton');
     submitAllButton.innerText = `${numberOfForms}개 강의 신청하기`;
+}
+
+function trimAllTextInputs() {
+    const inputs = document.getElementsByTagName('input');
+    for (const input of inputs) {
+        if (input.type === 'text') {
+            input.onchange = function() {
+                this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
+            };
+        }
+    }
+}
+
+function checkIfBrowserIsCompatible() {
+    if(typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1){
+        // Promise enabled.
+    } else {
+        alert('지원하지 않는 브라우저입니다!');
+    }
 }
 
 function login() {

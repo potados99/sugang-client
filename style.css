@@ -17,8 +17,14 @@ h3 {
 }
 
 .notice-area {
-  background-color: #FFFF99;
+  background-color: #292d32;
   padding: 12px;
+  font-weight: 600;
+  color: white;
+}
+
+.notice-area a {
+  color: white;
 }
 
 .content-area {
@@ -131,7 +137,7 @@ iframe {
 }
 
 #progress {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
   display: none; /* Default hidden */
 }
 
