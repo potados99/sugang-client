@@ -7,6 +7,14 @@ const state = {
     frameIsLoaded: false
 };
 
+function addField() {
+    _createAndAppendForm();
+    _updateSubmitAllButton();
+
+    // Invoke this for the newly added form.
+    trimAllTextInputs();
+}
+
 function trimAllTextInputs() {
     const inputs = document.getElementsByTagName('input');
     for (const input of inputs) {
@@ -16,14 +24,6 @@ function trimAllTextInputs() {
             };
         }
     }
-}
-
-function addField() {
-    _createAndAppendForm();
-    _updateSubmitAllButton();
-
-    // Invoke this for the newly added form.
-    trimAllTextInputs();
 }
 
 function _createAndAppendForm() {
@@ -49,27 +49,64 @@ function _updateSubmitAllButton() {
     submitAllButton.innerText = `${numberOfForms}개 강의 신청하기`;
 }
 
+function login() {
+    onFrameStartLoading();
+}
+
 async function submitAll() {
     const forms = Array.from(document.getElementById('forms').children);
-    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+    const progress = document.getElementById('progress');
 
-    for (const form of forms) {
+    const start = Date.now();
 
-        state.frameIsLoaded = false;
+    // Blocking loop.
+    for (const [i, form] of forms.entries()) {
+        progress.style.display = 'block';
+        progress.innerText = `${forms.length}개 중 ${i+1}번째(${form.par_haksuNo.value}) 신청 중...`;
 
-        console.log('Sent request!');
-        form.submit();
+        // Wait until submit finishes.
+        await _submitForm(form);
 
-        while (!state.frameIsLoaded) {
-            // Wait until the frame is loaded(=submit is finished).
-            console.log('Waiting for response!');
-            await sleep(100);
+        const hasNext = (i < forms.length - 1);
+        if (hasNext) {
+            await sleep(1000);
         }
-
-        await sleep(1000);
     }
+
+    const end = Date.now();
+    const diffSec = (end - start) / 1000;
+
+    progress.innerText = `${forms.length}개 요청 전송 완료. ${diffSec}초 소요됨.`;
+}
+
+async function _submitForm(form) {
+    onFrameStartLoading();
+
+    form.submit();
+
+    while (!state.frameIsLoaded) {
+        await sleep(100);
+    }
+}
+
+function onFrameStartLoading() {
+    state.frameIsLoaded = false;
+    _markFrameAsLoading();
 }
 
 function onFrameLoaded() {
     state.frameIsLoaded = true;
+    _markFrameAsNotLoading();
+}
+
+function _markFrameAsLoading() {
+    document.getElementById('delegateFrameLoading').style.visibility = 'visible';
+}
+
+function _markFrameAsNotLoading() {
+    document.getElementById('delegateFrameLoading').style.visibility = 'hidden';
+}
+
+async function sleep(ms) {
+    return new Promise((res) => setTimeout(res, ms));
 }

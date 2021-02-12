@@ -108,16 +108,10 @@ input[type=text], input[type=password] {
 iframe {
   width: 100%;
   height: 100%;
-  margin: 8px auto;
   border: 1px solid #DDDDDD;
   border-radius: 4px;
   box-sizing: border-box;
   z-index: 3;
-}
-
-.title-area a {
-  color: inherit;
-  text-decoration: none;
 }
 
 .description {
@@ -134,4 +128,43 @@ iframe {
   margin: auto;
   align-content: center;
   line-height: 1.8em;
+}
+
+#progress {
+  margin-bottom: 12px;
+  display: none; /* Default hidden */
+}
+
+/* Linear progress bar */
+.linear-activity {
+  overflow: hidden;
+  width: 100%;
+  height: 4px;
+  background-color: #B3E5FC;
+  margin: 0;
+}
+
+.indeterminate {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.indeterminate:before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  background-color: #03A9F4;
+  animation: indeterminate_first 1.5s infinite ease-out;
+}
+
+@keyframes indeterminate_first {
+  0% {
+    left: -100%;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 100%;
+  }
 }
