@@ -29,7 +29,7 @@ function addField() {
 function _createAndAppendForm() {
     const newForm = document.createElement('form');
     newForm.target = 'delegateFrame';
-    newForm.action = 'http://sugang.inu.ac.kr/jsp/SukangResultList.jsp';
+    newForm.action = 'https://sugang.inu.ac.kr/jsp/SukangResultList.jsp';
     newForm.method = 'post';
     newForm.innerHTML = `
             <label>
