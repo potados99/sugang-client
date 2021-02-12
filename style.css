@@ -123,3 +123,14 @@ iframe {
   text-align: left;
   font-size: 14px;
 }
+
+.section {
+  text-align: left;
+  max-width: 750px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 36px;
+  margin: auto;
+  align-content: center;
+  line-height: 1.8em;
+}
