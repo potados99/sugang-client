@@ -16,14 +16,21 @@ h3 {
   margin-top: 21px;
 }
 
-.notice-area {
+.title-area {
   background-color: #292d32;
   padding: 12px;
   font-weight: 600;
   color: white;
 }
 
-.notice-area a {
+.title-area a {
+  color: white;
+}
+
+.notice-area {
+  background-color: #5f447a;
+  padding: 12px;
+  font-weight: 600;
   color: white;
 }
 
@@ -48,11 +55,14 @@ h3 {
 
 .side-area {
   max-width: 750px;
-  margin: 6px 12px 12px 6px; /* Small margin on top & left side */
+  margin: 8px 12px 12px 6px; /* Small margin on top & left side */
 }
 
 @media (max-width: 750px) {
   .main-area {
+    /* Update: hide on mobile. */
+    display: none;
+
     /* Limit only on mobile */
     width: unset;
     margin: 12px;
@@ -122,6 +132,8 @@ iframe {
 .description {
   text-align: left;
   font-size: 14px;
+  color: #666666;
+  margin-bottom: 16px;
 }
 
 .section {
@@ -135,7 +147,7 @@ iframe {
   line-height: 1.8em;
 }
 
-#progress {
+#requestProgress {
   margin-bottom: 14px;
   display: none; /* Default hidden */
 }
@@ -171,5 +183,37 @@ iframe {
   100% {
     left: 100%;
     width: 100%;
+  }
+}
+
+.clock-container {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #1b2117;
+}
+
+#clock {
+  color: #5fe264;
+  margin: auto;
+  font-size: min(15vw, 4em); /* max 4em */
+  font-family: 'digital-7', sans-serif;
+}
+
+@font-face {
+  font-family: 'digital-7';
+  src: url('digital-7.ttf');
+}
+
+#desktopRecommendation {
+  display: none;
+}
+
+@media (max-width: 750px) {
+  /* Show this notice only on mobile. */
+  #desktopRecommendation {
+    display: block;
   }
 }
