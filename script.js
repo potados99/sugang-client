@@ -53,7 +53,7 @@ async function submitAll() {
     const end = Date.now();
     const diffSec = (end - start) / 1000;
 
-    progress.innerHTML = `${forms.length}개 요청 전송 완료. ${diffSec}초 소요됨. <a href="https://sugang.inu.ac.kr/jsp/SukangResultList.jsp" target="_blank">결과 보기</a>`;
+    progress.innerHTML = `${forms.length}개 요청 전송 완료. ${diffSec}초 소요됨. <a href="https://sugang.inu.ac.kr" target="_blank">결과 보기</a>`;
 }
 
 function onFrameStartLoading() {
