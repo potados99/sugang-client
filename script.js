@@ -84,7 +84,7 @@ function _createAndAppendForm() {
     `;
 
     _getFormsContainer().appendChild(newForm);
-}http
+}
 
 function _updateSubmitAllButton() {
     const numberOfForms = _getFormsContainer().childElementCount;
