@@ -183,3 +183,12 @@ iframe {
   font-family: 'digital-7';
   src: url('digital-7.ttf');
 }
+
+ol li {
+  margin-bottom: 12px;
+}
+
+img {
+  margin-bottom: 12px;
+}
+

@@ -29,14 +29,14 @@ const phases = [
         name: 'REQUEST_LOGIN',
         onEnterPhase: () => {
             _activateSingleSection('#performSection');
-            _setPerformDescriptionMessage('아래 버튼을 누르면 <b>새 창으로 이동</b>합니다. 새 창에 결과가 표시될 때까지 기다렸다가 <b>이 창으로 돌아와</b> 주세요.');
+            _setPerformDescriptionMessage('수강신청이 시작되면 아래 버튼을 눌러주세요.<br>버튼을 누르면 <b>새 창으로 이동</b>합니다. <br><br>새 창에 결과가 표시될 때까지 기다렸다가 <b>로그인이 성공하는 것을 꼭 확인</b>해 주세요. 사용자가 몰리면 로그인이 느릴 수 있으니 <b>꼭 기다려 주셔야 합니다.</b> <br><br>로그인에 성공하셨면 다음 진행을 위해 <b>이 창으로 돌아와</b> 주세요.');
             _setPerformButton('로그인하기', () => {
                 _login();
                 moveToNextPhase();
             });
         },
         onLeavePhase: () => {
-            _setPerformDescriptionMessage('로그인에 성공하셨나요? 아래 버튼을 눌러 계속해 주세요.');
+            _setPerformDescriptionMessage('로그인에 성공하셨나요?<br><br>아래 버튼을 누르면 <b>새 창으로</b> 이동해 다음 강의 수강 요청을 보냅니다.<br><br>새 창에서 <b>결과 화면이 뜰 때까지 기다려</b> 주세요. 신청한 강의가 <b>잘 처리되었는지 꼭 확인</b>해 주셔야 합니다.<br><br>(만약 결과 목록에 방금 신청한 강의가 없다면 마감되었거나 보안문자 관련하여 문제가 생긴 것입니다. <a href="https://sugang.inu.ac.kr/sukang_main.html">수강신청 페이지</a>에서 다시 시도해 주세요.)<br><br>결과를 확인하신 다음 <b>이 창으로 돌아와</b> 주세요.');
         }
     },
     {
@@ -122,7 +122,7 @@ function _setPerformButtonForNextSubmit() {
     const nextForm = _previewNextFormToSubmit();
     const nextCourseId = nextForm['par_haksuNo'].value;
 
-    _setPerformButton(`다음 강의(${nextCourseId}) 수강하기`, _submitNext);
+    _setPerformButton(`다음 강의(${nextCourseId}) 신청하기`, _submitNext);
 }
 
 function _submitNext() {
@@ -140,7 +140,7 @@ function _submitNext() {
         return;
     }
 
-    _setPerformDescriptionMessage('<b>해당 강의의 신청 결과를 확인</b>하셨나요? 아래 버튼을 눌러 다음 강의에 대한 수강 요청을 보내세요. <b>새 탭에서</b> 열립니다.');
+    _setPerformDescriptionMessage('신청에 성공하셨나요?<br><br>아래 버튼을 누르면 <b>새 창으로</b> 이동해 다음 강의 수강 요청을 보냅니다.<br><br>새 창에서 <b>결과 화면이 뜰 때까지 기다려</b> 주세요. 신청한 강의가 <b>잘 처리되었는지 꼭 확인</b>해 주셔야 합니다.<br><br>(만약 결과 목록에 방금 신청한 강의가 없다면 마감되었거나 보안문자 관련하여 문제가 생긴 것입니다. <a href="https://sugang.inu.ac.kr/sukang_main.html">수강신청 페이지</a>에서 다시 시도해 주세요.)<br><br>결과를 확인하신 다음 <b>이 창으로 돌아와</b> 주세요.');
     _setPerformButtonForNextSubmit();
 }
 
@@ -171,7 +171,7 @@ function _getNextFormToSubmit() {
  ****************************************************************/
 
 function _openResultPage() {
-    window.open('http://sugang.inu.ac.kr:8885/sukang_main.html');
+    window.open('https://sugang.inu.ac.kr/sukang_main.html');
 }
 
 function _login() {
