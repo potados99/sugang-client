@@ -38,16 +38,21 @@ h3 {
   margin: auto;
   text-align: center;
   display: table;
+  max-width: 500px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+@media (min-width: 500px) {
+  /* Desktop */
+  .content-area {
+    width: 100%;
+  }
 }
 
 .section {
-  width: 100%;
-  max-width: 500px;
-  margin-left: 12px;
-  margin-right: 12px;
+  text-align: left;
 }
-
-
 
 /* Text in form */
 input {
@@ -159,11 +164,12 @@ iframe {
 
 .clock-container {
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 10px 5px 10px;
   margin: 8px 0;
   border-radius: 4px;
   box-sizing: border-box;
   background-color: #1b2117;
+  text-align: center;
 }
 
 #clock {
