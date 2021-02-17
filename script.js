@@ -74,7 +74,7 @@ function onFrameLoaded() {
 function _createAndAppendForm() {
     const newForm = document.createElement('form');
     newForm.target = 'delegateFrame';
-    newForm.action = 'https://sugang.inu.ac.kr/jsp/SukangResultList.jsp';
+    newForm.action = 'http://sugang.inu.ac.kr:8885/jsp/SukangResultList.jsp';
     newForm.method = 'post';
     newForm.innerHTML = `
             <label>
@@ -84,7 +84,7 @@ function _createAndAppendForm() {
     `;
 
     _getFormsContainer().appendChild(newForm);
-}
+}http
 
 function _updateSubmitAllButton() {
     const numberOfForms = _getFormsContainer().childElementCount;
