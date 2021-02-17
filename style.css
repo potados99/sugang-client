@@ -23,7 +23,7 @@ h3 {
   color: white;
 }
 
-.title-area a {
+.title-area a,  .notice-area a {
   color: white;
 }
 
@@ -35,42 +35,23 @@ h3 {
 }
 
 .content-area {
-  display: flex;
-  padding: unset;
-  height: 90vh;
+  margin: auto;
+  text-align: center;
+  display: table;
+  max-width: 500px;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 
-@media (max-width: 750px) {
+@media (min-width: 500px) {
+  /* Desktop */
   .content-area {
-    display: block;
-    padding: unset;
-    height: 90vh;
+    width: 100%;
   }
 }
 
-.main-area {
-  width: 100%;
-  margin: 12px 6px 12px 12px; /* Small margin on right side */
-}
-
-.side-area {
-  max-width: 750px;
-  margin: 8px 12px 12px 6px; /* Small margin on top & left side */
-}
-
-@media (max-width: 750px) {
-  .main-area {
-    /* Update: hide on mobile. */
-    display: none;
-
-    /* Limit only on mobile */
-    width: unset;
-    margin: 12px;
-  }
-
-  .side-area {
-    margin: 12px;
-  }
+.section {
+  text-align: left;
 }
 
 /* Text in form */
@@ -136,15 +117,10 @@ iframe {
   margin-bottom: 16px;
 }
 
-.section {
+.important-description {
   text-align: left;
-  max-width: 750px;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-bottom: 36px;
-  margin: auto;
-  align-content: center;
-  line-height: 1.8em;
+  font-size: 18px;
+  margin-bottom: 16px;
 }
 
 #requestProgress {
@@ -188,11 +164,12 @@ iframe {
 
 .clock-container {
   width: 100%;
-  padding: 12px 20px;
+  padding: 10px 10px 5px 10px;
   margin: 8px 0;
   border-radius: 4px;
   box-sizing: border-box;
   background-color: #1b2117;
+  text-align: center;
 }
 
 #clock {
@@ -207,13 +184,11 @@ iframe {
   src: url('digital-7.ttf');
 }
 
-#desktopRecommendation {
-  display: none;
+ol li {
+  margin-bottom: 12px;
 }
 
-@media (max-width: 750px) {
-  /* Show this notice only on mobile. */
-  #desktopRecommendation {
-    display: block;
-  }
+img {
+  margin-bottom: 12px;
 }
+

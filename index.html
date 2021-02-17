@@ -26,68 +26,64 @@
     📢 처음이신가요? <a href="help.html">클릭</a>
 </div>
 
-<div id="desktopRecommendation" class="notice-area">
-    데스크탑에서 이용하시는게 더 편해요!
+<div class="notice-area">
+    크롬에서 작동하지 않아 새로 만들었습니다! 기존 버전은 <a href="./unstable">여기</a>에 있습니다.
 </div>
 
 <div class="content-area">
-    <!-- Wrapped content -->
-    <div class="main-area">
-        <!-- Linear progress bar -->
-        <div id="delegateFrameLoading" class="linear-activity">
-            <div class="indeterminate"></div>
-        </div>
-        <iframe src="https://sugang.inu.ac.kr" name="delegateFrame" onload="onFrameLoaded();"></iframe>
-        <div class="description">
-            ↑ 요청 결과가 여기에 나타납니다.
+    <!-- Clock -->
+    <div class="section">
+        <div class="clock-container">
+            <p id="clock"><!-- Clock will be here --></p>
         </div>
     </div>
 
-    <!-- Sidebar -->
-    <div class="side-area">
-        <!-- Clock -->
-        <div>
-            <div class="clock-container">
-                <p id="clock"><!-- Clock will be here --></p>
-            </div>
+    <!-- Input -->
+    <div id="inputSection" class="section part-of-phase">
+        <h3>1. 정보 입력</h3>
+
+        <!-- Login form -->
+        <form name="loginForm" target="_blank" action="https://sugang.inu.ac.kr/jsp/loginCheck.jsp" method="post">
+            <label>
+                <input type="text" name="stuno" placeholder="학번">
+            </label>
+            <label>
+                <input type="password" name="pwd" placeholder="비밀번호">
+            </label>
+        </form>
+
+        <div class="description">
+            입력하신 학번과 비밀번호는 수강신청 서버로만 전송되며 어디에도 저장되지 않습니다.
         </div>
 
-        <!-- Login -->
-        <div>
-            <h3>1. 로그인</h3>
-
-            <form target="delegateFrame" action="https://sugang.inu.ac.kr/jsp/loginCheck.jsp" method="post">
-                <label>
-                    <input type="text" name="stuno" placeholder="학번">
-                </label>
-                <label>
-                    <input type="password" name="pwd" placeholder="비밀번호">
-                </label>
-
-                <button class="submit-button" type="submit" onclick="login();">로그인</button>
-            </form>
+        <!-- Container of submit forms -->
+        <div id="formsContainer">
+            <!-- Will be filled after onLoad -->
         </div>
 
-        <!-- Submit -->
-        <div>
-            <h3>2. 수강신청</h3>
+        <button class="button" onclick="_addCourseIdField();">+ 학수번호 추가하기</button>
 
-            <div id="formsContainer">
-                <!-- Will be filled after onLoad -->
-            </div>
-
-            <button class="button" onclick="addField();">+ 학수번호 추가하기</button>
-
-            <!-- The submit-all button -->
-            <button id="submitAllButton" class="submit-button" onclick="submitAll();"></button>
-
-            <!-- Progress -->
-            <div id="requestProgress"><!-- Default empty --></div>
-
-            <div class="description" style="padding-bottom: 36px;">
-                입력하신 학수번호에 대해 순차적으로 수강신청 요청을 전송합니다. 요청은 최소 1초 간격을 두고 전송됩니다. 팝업 발생 시 직접 닫아주셔야 다음 요청이 진행됩니다.
-            </div>
+        <div class="description">
+            학수번호를 필요한 만큼 입력해 주세요.
         </div>
+
+        <button class="submit-button" onclick="moveToNextPhase();">이대로 진행하기</button>
+        <div class="description">
+            바로 요청을 보내지 않습니다. 수강 신청이 시작하기 전에 다음으로 넘어가 주세요.
+        </div>
+    </div>
+
+    <!-- Perform -->
+    <div id="performSection" class="section part-of-phase">
+        <h3>2. 요청 실행</h3>
+
+        <div id="performDescription" class="important-description">
+            <!-- Will be filled -->
+        </div>
+
+        <button id="performButton" class="submit-button">
+            <!-- Will be filled -->
+        </button>
     </div>
 </div>
 </body>

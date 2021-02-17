@@ -1,79 +1,214 @@
-window.onload = initialize;
+window.onload = moveToNextPhase;
 
-const state = {
-    frameIsLoaded: false
+const states = {
+    currentPhase: -1,
+    currentForm: -1
 };
+
+const phases = [
+    {
+        name: 'START',
+        onEnterPhase: () => {
+            _startClock();
+            _checkIfBrowserSupportsPromise();
+        },
+        onDidEnterPhase: () => {
+            // Escape immediately.
+            moveToNextPhase();
+        }
+    },
+    {
+        name: 'INPUT',
+        onEnterPhase: () => {
+            // Add initial field.
+            _addCourseIdField();
+            _activateSingleSection('#inputSection');
+        }
+    },
+    {
+        name: 'REQUEST_LOGIN',
+        onEnterPhase: () => {
+            _activateSingleSection('#performSection');
+            _setPerformDescriptionMessage('수강신청이 시작되면 아래 버튼을 눌러주세요.<br>버튼을 누르면 <b>새 창으로 이동</b>합니다. <br><br>새 창에 결과가 표시될 때까지 기다렸다가 <b>로그인이 성공하는 것을 꼭 확인</b>해 주세요. 사용자가 몰리면 로그인이 느릴 수 있으니 <b>꼭 기다려 주셔야 합니다.</b> <br><br>로그인에 성공하셨면 다음 진행을 위해 <b>이 창으로 돌아와</b> 주세요.');
+            _setPerformButton('로그인하기', () => {
+                _login();
+                moveToNextPhase();
+            });
+        },
+        onLeavePhase: () => {
+            _setPerformDescriptionMessage('로그인에 성공하셨나요?<br><br>아래 버튼을 누르면 <b>새 창으로</b> 이동해 다음 강의 수강 요청을 보냅니다.<br><br>새 창에서 <b>결과 화면이 뜰 때까지 기다려</b> 주세요. 신청한 강의가 <b>잘 처리되었는지 꼭 확인</b>해 주셔야 합니다.<br><br>(만약 결과 목록에 방금 신청한 강의가 없다면 마감되었거나 보안문자 관련하여 문제가 생긴 것입니다. <a href="https://sugang.inu.ac.kr/sukang_main.html">수강신청 페이지</a>에서 다시 시도해 주세요.)<br><br>결과를 확인하신 다음 <b>이 창으로 돌아와</b> 주세요.');
+        }
+    },
+    {
+        name: 'REQUEST_SUBMIT',
+        onEnterPhase: () => {
+            _startSubmitPhase();
+        }
+    },
+    {
+        name: 'END',
+        onEnterPhase: () => {
+            _setPerformDescriptionMessage('모두 끝났습니다!');
+            _setPerformButton('확인하러 가기', () => {
+                _openResultPage();
+            });
+        }
+    }
+];
 
 
 /****************************************************************
- * Public
+ * State machine
  ****************************************************************/
 
-function initialize() {
-    addField();
-    _trimAllTextInputs();
-    _browserSupportsPromise();
-    _startClock();
+function moveToNextPhase() {
+    const nextPhase = this._findNextPhase();
+    if (nextPhase === undefined) {
+        // Already reached the end.
+        console.log('No next phase!');
+        return;
+    }
+
+    if (states.currentPhase === -1) {
+        console.log('Starting.');
+    } else {
+        console.log(`Moving phase from ${phases[states.currentPhase].name} to ${phases[nextPhase].name}.`);
+    }
+
+    // On leave
+    try {
+        phases[states.currentPhase].onLeavePhase();
+    } catch (e) {
+        // Do nothing.
+    }
+
+    // On enter
+    try {
+        phases[nextPhase].onEnterPhase();
+    } catch (e) {
+        // Do nothing.
+    }
+
+    states.currentPhase = nextPhase;
+
+    // On did enter
+    try {
+        phases[nextPhase].onDidEnterPhase();
+    } catch (e) {
+        // Do nothing.
+    }
 }
 
-function addField() {
+function _findNextPhase() {
+    const lastPhase = phases.length - 1;
+    if (states.currentPhase >= lastPhase) {
+        // No next phase.
+        return undefined;
+    }
+
+    return states.currentPhase + 1;
+}
+
+
+/****************************************************************
+ * Submitting course ids
+ ****************************************************************/
+
+function _startSubmitPhase() {
+    _setPerformButtonForNextSubmit();
+}
+
+function _setPerformButtonForNextSubmit() {
+    const nextForm = _previewNextFormToSubmit();
+    const nextCourseId = nextForm['par_haksuNo'].value;
+
+    _setPerformButton(`다음 강의(${nextCourseId}) 신청하기`, _submitNext);
+}
+
+function _submitNext() {
+    const formToSubmit = _getNextFormToSubmit();
+    if (!formToSubmit) {
+        moveToNextPhase();
+        return;
+    }
+
+    formToSubmit.submit();
+
+    const formToSubmitNextTime = _previewNextFormToSubmit();
+    if (!formToSubmitNextTime) {
+        moveToNextPhase();
+        return;
+    }
+
+    _setPerformDescriptionMessage('신청에 성공하셨나요?<br><br>아래 버튼을 누르면 <b>새 창으로</b> 이동해 다음 강의 수강 요청을 보냅니다.<br><br>새 창에서 <b>결과 화면이 뜰 때까지 기다려</b> 주세요. 신청한 강의가 <b>잘 처리되었는지 꼭 확인</b>해 주셔야 합니다.<br><br>(만약 결과 목록에 방금 신청한 강의가 없다면 마감되었거나 보안문자 관련하여 문제가 생긴 것입니다. <a href="https://sugang.inu.ac.kr/sukang_main.html">수강신청 페이지</a>에서 다시 시도해 주세요.)<br><br>결과를 확인하신 다음 <b>이 창으로 돌아와</b> 주세요.');
+    _setPerformButtonForNextSubmit();
+}
+
+function _previewNextFormToSubmit() {
+    const forms = Array.from(document.getElementById('formsContainer').children);
+    const nextFormIndex = states.currentForm + 1;
+
+    const nextExists = (nextFormIndex < forms.length);
+    if (!nextExists) {
+        return undefined;
+    }
+
+    return forms[nextFormIndex];
+}
+
+function _getNextFormToSubmit() {
+    const form = _previewNextFormToSubmit();
+    if (form) {
+        states.currentForm += 1;
+    }
+
+    return form;
+}
+
+
+/****************************************************************
+ * Request actions
+ ****************************************************************/
+
+function _openResultPage() {
+    window.open('https://sugang.inu.ac.kr/sukang_main.html');
+}
+
+function _login() {
+    document.loginForm.submit();
+}
+
+
+/****************************************************************
+ * DOM manipulation
+ ****************************************************************/
+
+function _startClock() {
+    _updateClock();
+    setInterval(_updateClock, 10);
+}
+
+function _updateClock() {
+    const clock = document.getElementById('clock');
+
+    const date = new Date();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+
+    clock.innerText = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+}
+
+function _addCourseIdField() {
     _createAndAppendForm();
-    _updateSubmitAllButton();
 
     // Invoke this for the newly added form.
     _trimAllTextInputs();
 }
 
-function login() {
-    onFrameStartLoading();
-
-    // Post will be handled by <form>.
-}
-
-async function submitAll() {
-    const forms = Array.from(_getFormsContainer().children);
-    const progress = _getRequestProgress();
-
-    const start = Date.now();
-
-    // Blocking loop.
-    for (const [i, form] of forms.entries()) {
-        progress.style.display = 'block';
-        progress.innerText = `${forms.length}개 중 ${i+1}번째(${form.par_haksuNo.value}) 신청 중...`;
-
-        // Wait until submit finishes.
-        await _submitForm(form);
-
-        const hasNext = (i < forms.length - 1);
-        if (hasNext) {
-            await _sleep(1000);
-        }
-    }
-
-    const end = Date.now();
-    const diffSec = (end - start) / 1000;
-
-    progress.innerHTML = `${forms.length}개 요청 전송 완료. ${diffSec}초 소요됨. <a href="https://sugang.inu.ac.kr" target="_blank">결과 보기</a>`;
-}
-
-function onFrameStartLoading() {
-    state.frameIsLoaded = false;
-    _markFrameAsLoading();
-}
-
-function onFrameLoaded() {
-    state.frameIsLoaded = true;
-    _markFrameAsNotLoading();
-}
-
-
-/****************************************************************
- * Private
- ****************************************************************/
-
 function _createAndAppendForm() {
     const newForm = document.createElement('form');
-    newForm.target = 'delegateFrame';
+    newForm.target = '_blank';
     newForm.action = 'https://sugang.inu.ac.kr/jsp/SukangResultList.jsp';
     newForm.method = 'post';
     newForm.innerHTML = `
@@ -83,13 +218,7 @@ function _createAndAppendForm() {
             <input type="hidden" name="par_type" value="insert"> <!-- part of API -->
     `;
 
-    _getFormsContainer().appendChild(newForm);
-}
-
-function _updateSubmitAllButton() {
-    const numberOfForms = _getFormsContainer().childElementCount;
-    const submitAllButton = document.getElementById('submitAllButton');
-    submitAllButton.innerText = `${numberOfForms}개 강의 신청하기`;
+    document.getElementById('formsContainer').appendChild(newForm);
 }
 
 function _trimAllTextInputs() {
@@ -103,73 +232,27 @@ function _trimAllTextInputs() {
     }
 }
 
-async function _submitForm(form) {
-    onFrameStartLoading();
-
-    form.submit();
-
-    while (!state.frameIsLoaded) {
-        await _sleep(100);
-    }
-}
-
-function _markFrameAsLoading() {
-    _getDelegateFrameLoading().style.visibility = 'visible';
-}
-
-function _markFrameAsNotLoading() {
-    _getDelegateFrameLoading().style.visibility = 'hidden';
-}
-
-function _startClock() {
-    _updateClock();
-    setInterval(_updateClock, 10);
-}
-
-function _updateClock() {
-    const clock = _getClock();
-
-    const date = new Date();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const seconds = date.getSeconds();
-
-    clock.innerText = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-}
-
-
-/****************************************************************
- * Cached elements accessors
- ****************************************************************/
-
-const elementsCache = {};
-
-function _getClock() {
-    if (elementsCache.clock === undefined) {
-        elementsCache.clock = document.getElementById('clock');
+function _activateSingleSection(sectionSelector) {
+    // Disable all sections
+    const allSections = document.getElementsByClassName('section part-of-phase');
+    for (const section of allSections) {
+        _disableElement(section);
     }
 
-    return elementsCache.clock;
+    // Enabled given section
+    const sectionToActivate = document.querySelector(sectionSelector);
+    _enableElement(sectionToActivate);
 }
 
-function _getFormsContainer() {
-    return _getElement('formsContainer');
+function _setPerformButton(buttonLabel, action) {
+    const button = document.getElementById('performButton');
+
+    button.innerText = buttonLabel;
+    button.onclick = action;
 }
 
-function _getRequestProgress() {
-    return _getElement('requestProgress');
-}
-
-function _getDelegateFrameLoading() {
-    return _getElement('delegateFrameLoading');
-}
-
-function _getElement(id) {
-    if (elementsCache[id] === undefined) {
-        elementsCache[id] = document.getElementById(id);
-    }
-
-    return elementsCache[id];
+function _setPerformDescriptionMessage(message) {
+    document.getElementById('performDescription').innerHTML = message;
 }
 
 
@@ -177,14 +260,18 @@ function _getElement(id) {
  * Utilities
  ****************************************************************/
 
-async function _sleep(ms) {
-    return new Promise((res) => setTimeout(res, ms));
-}
-
-function _browserSupportsPromise() {
+function _checkIfBrowserSupportsPromise() {
     if(typeof Promise !== "undefined" && Promise.toString().indexOf("[native code]") !== -1){
         // Promise enabled.
     } else {
         alert('지원하지 않는 브라우저입니다!');
     }
+}
+
+function _disableElement(element) {
+    element.style.display = 'none';
+}
+
+function _enableElement(element) {
+    element.style.display = 'block';
 }
