@@ -14,9 +14,12 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L52MCPT86E"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
 
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
         gtag('config', 'G-L52MCPT86E');
     </script>
 </header>
@@ -44,12 +47,8 @@
 
         <!-- Login form -->
         <form name="loginForm" target="_blank" method="post">
-            <label>
-                <input class="form-input " type="text" name="stuno" placeholder="학번">
-            </label>
-            <label>
-                <input class="form-input" type="password" name="pwd" placeholder="비밀번호">
-            </label>
+            <input class="form-input " type="text" name="stuno" placeholder="학번">
+            <input class="form-input" type="password" name="pwd" placeholder="비밀번호">
 
             <button class="form-button green-button" type="button" onclick="login()">로그인하기</button>
         </form>
@@ -57,7 +56,6 @@
         <div class="description">
             입력하신 학번과 비밀번호는 수강신청 서버로만 전송되며 어디에도 저장되지 않습니다.
         </div>
-
     </div>
 
     <!-- Submit -->
@@ -66,7 +64,8 @@
 
         <!-- Bulk add field -->
         <div class="row">
-            <input id="courseIdsInput" class="col-8 col-input" type="text" name="courseIds" placeholder="IAA12345678, OO98765432">
+            <input id="courseIdsInput" class="col-8 col-input" type="text" name="courseIds"
+                   placeholder="IAA12345678, OO98765432">
 
             <button class="col-2 col-button plain-button" onclick="addCourseIdFormRow();">+ 추가</button>
         </div>
@@ -80,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Submit -->
+    <!-- Open result page -->
     <div class="section">
         <h3>3. 수강신청 페이지로 이동</h3>
 
