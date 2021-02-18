@@ -3,6 +3,14 @@ window.onload = function () {
     _makeAllInputsTrimText()
 };
 
+const baseUrl = 'http://sugang.inu.ac.kr:8885';
+
+const endpoints = {
+    login: `${baseUrl}/jsp/loginCheck.jsp`,
+    init: `${baseUrl}/jsp/SukangInit.jsp`,
+    submit: `${baseUrl}/jsp/SukangResultList.jsp`,
+}
+
 function _startClock() {
     _updateClock();
     setInterval(_updateClock, 10);
@@ -98,6 +106,10 @@ function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
     document.getElementById('courseIdFormRows').appendChild(newRowsWrapper);
 }
 
+function _generateId() {
+    return Math.random().toString(36).substring(2);
+}
+
 function _separateCourseIdAndMemo(courseIdWithMemo) {
     try {
         const [, rawCourseId, , rawMemo] = /([^()]+)(\((.+)\))?/.exec(courseIdWithMemo);
@@ -111,13 +123,7 @@ function _separateCourseIdAndMemo(courseIdWithMemo) {
 
         return courseIdWithMemo;
     }
-
 }
-
-function _generateId() {
-    return Math.random().toString(36).substring(2);
-}
-
 
 function _removeElement(id) {
     const element = document.getElementById(id);
@@ -125,15 +131,6 @@ function _removeElement(id) {
     element.parentElement.removeChild(element);
 }
 
-const baseUrl = 'http://sugang.inu.ac.kr:8885';
-
-const endpoints = {
-    login: `${baseUrl}/jsp/loginCheck.jsp`,
-    init: `${baseUrl}/jsp/SukangInit.jsp`,
-    submit: `${baseUrl}/jsp/SukangResultList.jsp`,
-}
-
-function _openResultPage() {
+function openResultPage() {
     window.open(endpoints.init);
 }
-
