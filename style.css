@@ -54,27 +54,60 @@ h3 {
   text-align: left;
 }
 
-/* Text in form */
-input {
-  font-size: 16px;
-}
+/**
+ * Inputs
+ */
 
-/* Style inputs */
-input[type=text], input[type=password] {
-  width: 100%;
+/* Usage of input */
+.form-input, .col-input {
+  font-size: 16px;
   padding: 12px 20px;
   margin: 8px 0;
-  display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
-/* Style the submit button */
-.button, .submit-button {
-  font-size: 16px;
+.form-input {
   width: 100%;
+}
+
+.col-input {
+  width: inherit;
+}
+
+
+/**
+ * Buttons
+ */
+
+/* Type of button  */
+.green-button, .plain-button {
+  border: none;
+  border-radius: 4px;
+}
+
+.green-button {
   color: white;
+  background-color: #4CAF50;
+}
+
+.green-button:hover {
+  background-color: #45a049;
+}
+
+.plain-button {
+  color: #555555;
+  background-color: #DDDDDD;
+}
+
+.plain-button:hover {
+  background-color: #cfcfcf;
+}
+
+/* Usage of button */
+.form-button, .col-button {
+  font-size: 16px;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
@@ -82,33 +115,62 @@ input[type=text], input[type=password] {
   cursor: pointer;
 }
 
-.button {
-  color: #555555;
-  background-color: #DDDDDD;
-}
-
-.button:hover {
-  background-color: #cfcfcf;
-}
-
-.submit-button {
-  background-color: #4CAF50;
-}
-
-/* Add a background color to the submit button on mouse-over */
-.submit-button:hover {
-  background-color: #45a049;
-}
-
-/* Style iframe */
-iframe {
+.form-button {
   width: 100%;
-  height: 100%;
-  border: 1px solid #DDDDDD;
-  border-radius: 4px;
-  box-sizing: border-box;
-  z-index: 3;
 }
+
+.col-button {
+  width: inherit;
+  padding: 0;
+}
+
+
+/**
+ * Row
+ */
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.row > * + * {
+  /* Gaps between items in a row */
+  margin-left: 6px;
+}
+
+.col, .col-9, .col-8, .col-7, .col-4, .col-2, .col-1 {
+  height: 47px;
+}
+
+.col-9 {
+  flex-grow: 9;
+}
+
+.col-8 {
+  flex-grow: 8;
+}
+
+.col-7 {
+  flex-grow: 7;
+}
+
+.col-4 {
+  flex-grow: 4;
+}
+
+.col-2 {
+  flex-grow: 2;
+}
+
+.col-1 {
+  flex-grow: 1;
+}
+
+
+
 
 .description {
   text-align: left;
@@ -135,31 +197,6 @@ iframe {
   height: 4px;
   background-color: #B3E5FC;
   margin: 0;
-}
-
-.indeterminate {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.indeterminate:before {
-  content: '';
-  position: absolute;
-  height: 100%;
-  background-color: #03A9F4;
-  animation: indeterminate_first 1.5s infinite ease-out;
-}
-
-@keyframes indeterminate_first {
-  0% {
-    left: -100%;
-    width: 100%;
-  }
-  100% {
-    left: 100%;
-    width: 100%;
-  }
 }
 
 .clock-container {
@@ -192,3 +229,9 @@ img {
   margin-bottom: 12px;
 }
 
+.invisible {
+  width: 0;
+  height: 0;
+  display: none;
+  opacity: 0;
+}
