@@ -62,11 +62,22 @@ function addCourseIdFormRow() {
     _makeAllInputsTrimText();
 }
 
-function _createAndAppendCourseIdForm(courseId) {
+function _createAndAppendCourseIdForm(courseIdWithMemo) {
     const newId = `form_${_generateId()}`;
+    const {courseId, memo} = _separateCourseIdAndMemo(courseIdWithMemo);
 
-    document.getElementById('courseIdFormRows').innerHTML += `
-            <form id="${newId}" class="row" target="_blank" action="${endpoints.submit}" method="post">
+    let newRows = '';
+
+    if (memo) {
+        newRows += `
+            <div style="font-size: 12px; margin-left: 1px; margin-bottom: -7px;">
+                ${memo}
+            </div>
+        `;
+    }
+
+    newRows += `
+            <form class="row" target="_blank" action="${endpoints.submit}" method="post">
                 <input class="col-7 col-input" name="par_haksuNo" value="${courseId}">
                 <input type="hidden" name="par_type" value="insert"> 
 
@@ -74,6 +85,28 @@ function _createAndAppendCourseIdForm(courseId) {
                 <button class="col-2 col-button green-button" type="submit">신청하기</button>
             </form>
     `;
+
+    const newRowsWrapper = document.createElement('div');
+    newRowsWrapper.id = newId;
+    newRowsWrapper.innerHTML = newRows;
+
+    document.getElementById('courseIdFormRows').appendChild(newRowsWrapper);
+}
+
+function _separateCourseIdAndMemo(courseIdWithMemo) {
+    try {
+        const [, rawCourseId, , rawMemo] = /([^()]+)(\((.+)\))?/.exec(courseIdWithMemo);
+
+        return {
+            courseId: rawCourseId?.trim(),
+            memo: rawMemo?.trim()
+        }
+    } catch (e) {
+        console.error(`Failed to parse course id! ${e}`);
+
+        return courseIdWithMemo;
+    }
+
 }
 
 function _generateId() {
