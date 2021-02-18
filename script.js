@@ -37,7 +37,7 @@ function login() {
     form.submit();
 }
 
-function addCourseIdFormRow() {
+function addCourseIdFormRows() {
     const input = document.getElementById('courseIdsInput');
     const commaSeparatedCourseIdsFromUserInput = input.value;
     const trimmed = commaSeparatedCourseIdsFromUserInput.trim();
@@ -51,7 +51,7 @@ function addCourseIdFormRow() {
         .map((each) => each.trim())
         .filter((trimmed) => trimmed);
 
-    courseIds.forEach(_createAndAppendCourseIdForm);
+    courseIds.forEach(_createAndAppendCourseIdFormRow);
 
     if (courseIds.length === 1) {
         // Reset on single input.
@@ -62,7 +62,7 @@ function addCourseIdFormRow() {
     _makeAllInputsTrimText();
 }
 
-function _createAndAppendCourseIdForm(courseIdWithMemo) {
+function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
     const newId = `form_${_generateId()}`;
     const {courseId, memo} = _separateCourseIdAndMemo(courseIdWithMemo);
 
@@ -78,17 +78,22 @@ function _createAndAppendCourseIdForm(courseIdWithMemo) {
 
     newRows += `
             <form class="row" target="_blank" action="${endpoints.submit}" method="post">
-                <input class="col-7 col-input" name="par_haksuNo" value="${courseId}">
+                <input class="col-7 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
                 <input type="hidden" name="par_type" value="insert"> 
 
-                <button class="col-1 col-button plain-button" type="button" onclick="_removeElement('${newId}')">X</button>
-                <button class="col-2 col-button green-button" type="submit">신청하기</button>
+                <button class="col-1 col-button plain-button" type="button" onclick="_removeElement('${newId}')" style="min-width: 35px;">X</button>
+                <button class="col-2 col-button green-button" type="submit" style="min-width: 75px;">신청하기</button>
             </form>
     `;
 
+    // Wrap into div.
     const newRowsWrapper = document.createElement('div');
     newRowsWrapper.id = newId;
     newRowsWrapper.innerHTML = newRows;
+
+    // Set par_haksuNo value programmatically to prevent unexpected escape.
+    const courseIdInput = newRowsWrapper.getElementsByTagName('form')[0].elements['par_haksuNo'];
+    courseIdInput.value = courseId;
 
     document.getElementById('courseIdFormRows').appendChild(newRowsWrapper);
 }
