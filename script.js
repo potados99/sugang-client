@@ -1,5 +1,13 @@
 window.onload = moveToNextPhase;
 
+const baseUrl = 'http://sugang.inu.ac.kr:8885';
+
+const endpoints = {
+    login: `${baseUrl}/jsp/loginCheck.jsp`,
+    init: `${baseUrl}/jsp/SukangInit.jsp`,
+    submit: `${baseUrl}/jsp/SukangResultList.jsp`,
+}
+
 const states = {
     currentPhase: -1,
     currentForm: -1
@@ -171,11 +179,14 @@ function _getNextFormToSubmit() {
  ****************************************************************/
 
 function _openResultPage() {
-    window.open('https://sugang.inu.ac.kr/sukang_main.html');
+    window.open(endpoints.init);
 }
 
 function _login() {
-    document.loginForm.submit();
+    const form = document.loginForm;
+
+    form.action = endpoints.login;
+    form.submit();
 }
 
 
@@ -208,8 +219,8 @@ function _addCourseIdField() {
 
 function _createAndAppendForm() {
     const newForm = document.createElement('form');
+    newForm.action = endpoints.submit;
     newForm.target = '_blank';
-    newForm.action = 'https://sugang.inu.ac.kr/jsp/SukangResultList.jsp';
     newForm.method = 'post';
     newForm.innerHTML = `
             <label>
