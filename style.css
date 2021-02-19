@@ -1,3 +1,7 @@
+/**
+ * Basic
+ */
+
 html {
   margin: auto;
   height: 100%;
@@ -15,6 +19,19 @@ h3 {
   margin-bottom: 12px;
   margin-top: 21px;
 }
+
+ol li, ul li {
+  margin-bottom: 12px;
+}
+
+img {
+  margin-bottom: 12px;
+}
+
+
+/**
+ * Layouts
+ */
 
 .title-area {
   background-color: #292d32;
@@ -164,11 +181,24 @@ h3 {
 }
 
 
+/**
+ * Elements
+ */
+
 .description {
   text-align: left;
   font-size: 14px;
   margin-bottom: 16px;
   margin-left: 1px;
+}
+
+.memo-pad {
+  width: 100%;
+  height: 100%;
+  margin: 8px 12px 0 12px;
+  border: none;
+  background-color: #ffec6f;
+  padding: 18px;
 }
 
 .clock-container {
@@ -188,15 +218,46 @@ h3 {
   font-family: 'digital-7', sans-serif;
 }
 
+
+/**
+ * Sidebar layout
+ */
+
+/* Wrapper(layout) */
+.main-sidebar-wrapper {
+  margin: 0 auto;
+  text-align: center;
+  display: table;
+  max-width: 500px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* The main content(center) */
+.main {
+  float:left;
+}
+
+/* The sidebar(right) */
+.sidebar {
+  float:left;
+  margin-right: -200px;
+  width: 200px;
+  height: 50vh;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+
+/**
+ * Fonts
+ */
+
 @font-face {
   font-family: 'digital-7';
   src: url('digital-7.ttf');
-}
-
-ol li, ul li {
-  margin-bottom: 12px;
-}
-
-img {
-  margin-bottom: 12px;
 }

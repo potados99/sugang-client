@@ -33,64 +33,71 @@
     UI와 사용법을 개선했습니다. <a href="./updates.html">자세히</a>
 </div>
 
-<div class="content-area">
-    <!-- Clock -->
-    <div class="section">
-        <div class="clock-container">
-            <p id="clock"><!-- Clock will be here --></p>
+<div class="main-sidebar-wrapper">
+    <div class="main">
+        <!-- Clock -->
+        <div class="section">
+            <div class="clock-container">
+                <p id="clock"><!-- Clock will be here --></p>
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div class="section">
+            <h3>1. 로그인하기</h3>
+
+            <!-- Login form -->
+            <form name="loginForm" target="_blank" method="post">
+                <input class="form-input " type="text" name="stuno" placeholder="학번" onchange="saveLoginForm();">
+                <input class="form-input" type="password" name="pwd" placeholder="비밀번호" onchange="saveLoginForm();">
+
+                <button class="form-button green-button" type="submit">로그인하기</button>
+            </form>
+
+            <div class="description">
+                입력하신 학번과 비밀번호는 수강신청 서버로만 전송되며 어디에도 저장되지 않습니다.
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="section">
+            <h3>2. 강의 신청하기</h3>
+
+            <!-- Bulk add field -->
+            <div class="row">
+                <input id="courseIdsInput" class="col-8 col-input" type="text" name="courseIds"
+                       placeholder="IAA12345678(메모 1), OO98765432(메모 2)">
+
+                <button class="col-2 col-button plain-button" onclick="addCourseIdFormRows();" style="min-width: 75px;">+
+                    추가
+                </button>
+            </div>
+
+            <div class="description">
+                학수번호를 기입해 주세요. 여러 개를 쉼표로 이어서 쓸 수 있습니다. 소괄호 속에 메모를 남길 수 있습니다.
+            </div>
+
+            <div id="courseIdFormRows">
+                <!-- Form rows will be added here -->
+            </div>
+        </div>
+
+        <!-- Open result page -->
+        <div class="section">
+            <h3>3. 수강신청 페이지로 이동</h3>
+
+            <button class="form-button plain-button" onclick="openResultPage();">수강한 강의 목록 보기</button>
+            <div class="description">
+                수강한 강의 목록을 보려면 로그인이 되어 있어야 합니다. 로그인이 되어 있지 않으면 하얀 화면만 보입니다.
+            </div>
         </div>
     </div>
 
-    <!-- Login -->
-    <div class="section">
-        <h3>1. 로그인하기</h3>
-
-        <!-- Login form -->
-        <form name="loginForm" target="_blank" method="post">
-            <input class="form-input " type="text" name="stuno" placeholder="학번">
-            <input class="form-input" type="password" name="pwd" placeholder="비밀번호">
-
-            <button class="form-button green-button" type="submit">로그인하기</button>
-        </form>
-
-        <div class="description">
-            입력하신 학번과 비밀번호는 수강신청 서버로만 전송되며 어디에도 저장되지 않습니다.
-        </div>
-    </div>
-
-    <!-- Submit -->
-    <div class="section">
-        <h3>2. 강의 신청하기</h3>
-
-        <!-- Bulk add field -->
-        <div class="row">
-            <input id="courseIdsInput" class="col-8 col-input" type="text" name="courseIds"
-                   placeholder="IAA12345678(메모 1), OO98765432(메모 2)">
-
-            <button class="col-2 col-button plain-button" onclick="addCourseIdFormRows();" style="min-width: 75px;">+
-                추가
-            </button>
-        </div>
-
-        <div class="description">
-            학수번호를 기입해 주세요. 여러 개를 쉼표로 이어서 쓸 수 있습니다. 소괄호 속에 메모를 남길 수 있습니다.
-        </div>
-
-        <div id="courseIdFormRows">
-            <!-- Form rows will be added here -->
-        </div>
-    </div>
-
-    <!-- Open result page -->
-    <div class="section">
-        <h3>3. 수강신청 페이지로 이동</h3>
-
-        <button class="form-button plain-button" onclick="openResultPage();">수강한 강의 목록 보기</button>
-        <div class="description">
-            수강한 강의 목록을 보려면 로그인이 되어 있어야 합니다. 로그인이 되어 있지 않으면 하얀 화면만 보입니다.
-        </div>
+    <div class="sidebar">
+        <textarea id="memoPad" placeholder="여기에 메모하세요. 새로고침해도 유지됩니다." class="memo-pad" onchange="saveMemo();"></textarea>
     </div>
 </div>
+
 </body>
 
 </html>

@@ -1,8 +1,4 @@
-window.onload = function () {
-    _startClock();
-    _prepareLoginForm();
-    _makeAllInputsTrimText();
-};
+/** Configurations */
 
 const baseUrl = 'http://sugang.inu.ac.kr:8885';
 
@@ -11,6 +7,16 @@ const endpoints = {
     init: `${baseUrl}/jsp/SukangInit.jsp`,
     submit: `${baseUrl}/jsp/SukangResultList.jsp`,
 }
+
+
+/** Initial things */
+
+window.onload = function () {
+    _startClock();
+    _restoreMemo();
+    _restoreLoginForm();
+    _prepareLoginForm();
+};
 
 function _startClock() {
     console.log('Starting clock. Update every 10ms.');
@@ -30,6 +36,19 @@ function _updateClock() {
     clock.innerText = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
+function _restoreMemo() {
+    console.log('Restoring memo.');
+
+    document.getElementById('memoPad').value = localStorage.getItem("memoText");
+}
+
+function _restoreLoginForm() {
+    console.log('Restoring login form.');
+
+    document.loginForm.stuno.value = localStorage.getItem('stuno');
+    // Not restore password.
+}
+
 function _prepareLoginForm() {
     console.log('Setting action for login form.');
 
@@ -37,17 +56,16 @@ function _prepareLoginForm() {
     document.loginForm.action = endpoints.login;
 }
 
-function _makeAllInputsTrimText() {
-    console.log('Making all text inputs trim their inputs.');
 
-    const inputs = document.getElementsByTagName('input');
-    for (const input of inputs) {
-        if (input.type === 'text') {
-            input.onchange = function() {
-                this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
-            };
-        }
-    }
+/** Called by HTML */
+
+function saveMemo() {
+    localStorage.setItem("memoText", document.getElementById('memoPad').value);
+}
+
+function saveLoginForm() {
+    localStorage.setItem("stuno", document.loginForm.stuno.value);
+    // Not save password.
 }
 
 function addCourseIdFormRows() {
@@ -70,9 +88,6 @@ function addCourseIdFormRows() {
         // Reset on single input.
         input.value = '';
     }
-
-    // Invoke this for the newly added form.
-    _makeAllInputsTrimText();
 }
 
 function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
