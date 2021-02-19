@@ -16,6 +16,7 @@ window.onload = function () {
     _restoreMemo();
     _restoreLoginForm();
     _prepareLoginForm();
+    _restoreCourseIdsInput();
 };
 
 function _startClock() {
@@ -56,6 +57,11 @@ function _prepareLoginForm() {
     document.loginForm.action = endpoints.login;
 }
 
+function _restoreCourseIdsInput() {
+    console.log('Restoring course ids input.');
+
+    document.getElementById('courseIdsInput').value = localStorage.getItem('courseIds');
+}
 
 /** Called by HTML */
 
@@ -66,6 +72,10 @@ function saveMemo() {
 function saveLoginForm() {
     localStorage.setItem("stuno", document.loginForm.stuno.value);
     // Not save password.
+}
+
+function saveCourseIdsInput() {
+    localStorage.setItem("courseIds", document.getElementById('courseIdsInput').value);
 }
 
 function addCourseIdFormRows() {
@@ -86,7 +96,7 @@ function addCourseIdFormRows() {
 
     if (courseIds.length === 1) {
         // Reset on single input.
-        input.value = '';
+        _clearCourseIdsInput();
     }
 }
 
@@ -96,17 +106,10 @@ function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
 
     console.log(`Adding course id form row: (courseId: ${courseId}, memo: ${memo})`);
 
-    let newRows = '';
-
-    if (memo) {
-        newRows += `
+    const newRowsHTML = `
             <div style="font-size: 12px; margin-left: 1px; margin-bottom: -7px;">
-                ${memo}
+                ${memo || '⠀'} <!-- Take up its place even without memo. -->
             </div>
-        `;
-    }
-
-    newRows += `
             <form class="row" target="_blank" action="${endpoints.submit}" method="post">
                 <input class="col-7 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
                 <input type="hidden" name="par_type" value="insert"> 
@@ -119,7 +122,7 @@ function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
     // Wrap into div.
     const newRowsWrapper = document.createElement('div');
     newRowsWrapper.id = newId;
-    newRowsWrapper.innerHTML = newRows;
+    newRowsWrapper.innerHTML = newRowsHTML;
 
     // Set par_haksuNo value programmatically to prevent unexpected escape.
     const courseIdInput = newRowsWrapper.getElementsByTagName('form')[0].elements['par_haksuNo'];
@@ -145,6 +148,13 @@ function _separateCourseIdAndMemo(courseIdWithMemo) {
 
         return courseIdWithMemo;
     }
+}
+
+function _clearCourseIdsInput() {
+    const input = document.getElementById('courseIdsInput');
+
+    input.value = '';
+    localStorage.removeItem("courseIds");
 }
 
 function _removeElement(id) {
