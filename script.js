@@ -162,10 +162,8 @@ function _separateCourseIdAndMemo(courseIdWithMemo) {
 }
 
 function _clearCourseIdsInput() {
-    const input = document.getElementById('courseIdsInput');
-
-    input.value = '';
-    localStorage.removeItem("courseIds");
+    document.getElementById('courseIdsInput').value = '';
+    // Not remove in local storage.
 }
 
 function _removeElement(id) {
