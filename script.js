@@ -17,6 +17,7 @@ window.onload = function () {
     _restoreLoginForm();
     _prepareLoginForm();
     _restoreCourseIdsInput();
+    _prepareCourseIdsInput();
 };
 
 function _startClock() {
@@ -51,7 +52,7 @@ function _restoreLoginForm() {
 }
 
 function _prepareLoginForm() {
-    console.log('Setting action for login form.');
+    console.log('Preparing login form.');
 
     // Set action dynamically.
     document.loginForm.action = endpoints.login;
@@ -61,6 +62,16 @@ function _restoreCourseIdsInput() {
     console.log('Restoring course ids input.');
 
     document.getElementById('courseIdsInput').value = localStorage.getItem('courseIds');
+}
+
+function _prepareCourseIdsInput() {
+    console.log('Preparing course ids input.');
+
+    document.getElementById('courseIdsInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            addCourseIdFormRows();
+        }
+    })
 }
 
 /** Called by HTML */
