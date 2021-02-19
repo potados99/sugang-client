@@ -1,7 +1,7 @@
 window.onload = function () {
     _startClock();
-    _makeAllInputsTrimText();
     _prepareLoginForm();
+    _makeAllInputsTrimText();
 };
 
 const baseUrl = 'http://sugang.inu.ac.kr:8885';
@@ -30,6 +30,13 @@ function _updateClock() {
     clock.innerText = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
+function _prepareLoginForm() {
+    console.log('Setting action for login form.');
+
+    // Set action dynamically.
+    document.loginForm.action = endpoints.login;
+}
+
 function _makeAllInputsTrimText() {
     console.log('Making all text inputs trim their inputs.');
 
@@ -41,13 +48,6 @@ function _makeAllInputsTrimText() {
             };
         }
     }
-}
-
-function _prepareLoginForm() {
-    console.log('Setting action for login form.');
-
-    // Set action dynamically.
-    document.loginForm.action = endpoints.login;
 }
 
 function addCourseIdFormRows() {
