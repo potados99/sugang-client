@@ -244,7 +244,7 @@ img {
   float:left;
   margin-right: -200px;
   width: 200px;
-  height: 50vh;
+  height: 300px;
 }
 
 @media (max-width: 1024px) {
