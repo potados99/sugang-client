@@ -1,6 +1,7 @@
 window.onload = function () {
     _startClock();
-    _makeAllInputsTrimText()
+    _makeAllInputsTrimText();
+    _prepareLoginForm();
 };
 
 const baseUrl = 'http://sugang.inu.ac.kr:8885';
@@ -12,6 +13,8 @@ const endpoints = {
 }
 
 function _startClock() {
+    console.log('Starting clock. Update every 10ms.');
+
     _updateClock();
     setInterval(_updateClock, 10);
 }
@@ -28,6 +31,8 @@ function _updateClock() {
 }
 
 function _makeAllInputsTrimText() {
+    console.log('Making all text inputs trim their inputs.');
+
     const inputs = document.getElementsByTagName('input');
     for (const input of inputs) {
         if (input.type === 'text') {
@@ -38,11 +43,11 @@ function _makeAllInputsTrimText() {
     }
 }
 
-function login() {
-    const form = document.loginForm;
+function _prepareLoginForm() {
+    console.log('Setting action for login form.');
 
-    form.action = endpoints.login;
-    form.submit();
+    // Set action dynamically.
+    document.loginForm.action = endpoints.login;
 }
 
 function addCourseIdFormRows() {
@@ -73,6 +78,8 @@ function addCourseIdFormRows() {
 function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
     const newId = `form_${_generateId()}`;
     const {courseId, memo} = _separateCourseIdAndMemo(courseIdWithMemo);
+
+    console.log(`Adding course id form row: (courseId: ${courseId}, memo: ${memo})`);
 
     let newRows = '';
 
