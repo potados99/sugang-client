@@ -126,7 +126,7 @@ function _createAndAppendCourseIdFormRow(courseIdWithMemo) {
                 <input type="hidden" name="par_type" value="insert"> 
 
                 <button class="col-1 col-button plain-button" type="button" onclick="_removeElement('${newId}')" style="min-width: 35px;">X</button>
-                <button class="col-2 col-button green-button" type="submit" style="min-width: 75px;">신청하기</button>
+                <button class="col-2 col-button green-button" type="submit" style="min-width: 75px;">신청(새 창)</button>
             </form>
     `;
 
