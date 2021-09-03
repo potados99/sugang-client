@@ -72,15 +72,15 @@ function _tellUserAboutTheResult({total, added, ignored}) {
   const allIgnored = ignored > 0 && ignored === total;
 
   if (allAdded) {
-    notifyResult(`${added}과목을 추가했습니다.`);
+    notifyResult(`${added}개 과목을 추가했습니다.`);
   } else if (allIgnored) {
     if (total === 1) {
       notifyResult(`해당 과목은 이미 추가되어 있습니다.`);
     } else {
-      notifyResult(`${ignored}과목 모두 이미 추가되어 있어 건너뛰었습니다.`);
+      notifyResult(`${ignored}개 과목 모두 이미 추가되어 있어 건너뛰었습니다.`);
     }
   } else {
-    notifyResult(`${added}과목을 추가했습니다. 중복된 ${ignored}과목은 건너뛰었습니다.`)
+    notifyResult(`${added}개 과목을 추가했습니다. 중복된 ${ignored}개 과목은 건너뛰었습니다.`)
   }
 }
 

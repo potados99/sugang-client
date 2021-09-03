@@ -108,5 +108,5 @@ function notifyResult(message) {
 
   setTimeout(() => {
     formResult.style.lineHeight = '0';
-  }, 1500);
+  }, 2000);
 }
