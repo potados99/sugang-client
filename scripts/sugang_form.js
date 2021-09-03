@@ -90,7 +90,7 @@ function notifyResult(message) {
   const formResult = document.getElementById('addFormResult')
 
   formResult.innerText = message;
-  formResult.style.lineHeight = '1';
+  formResult.style.lineHeight = '1.7';
 
   setTimeout(() => {
     formResult.style.lineHeight = '0';

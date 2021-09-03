@@ -25,8 +25,8 @@ function saveCourseIdsInput() {
 }
 
 function addSugangFormsFromInput() {
-  const rawInputs = document
-    .getElementById('courseIdsInput')
+  const input = document.getElementById('courseIdsInput');
+  const rawInputs = input
     .value
     .trim();
 
@@ -57,6 +57,13 @@ function addSugangFormsFromInput() {
     added++;
   }
 
+  if (total === 1 && added === 1) {
+    /**
+     * 하나만 입력한 경우, 하나씩 입력하는 것으로 상정하고 입력 필드를 지워줍니다.
+     */
+    input.value = '';
+  }
+
   _tellUserAboutTheResult({total, added, ignored});
 }
 
@@ -67,7 +74,11 @@ function _tellUserAboutTheResult({total, added, ignored}) {
   if (allAdded) {
     notifyResult(`${added}과목을 추가했습니다.`);
   } else if (allIgnored) {
-    notifyResult(`${ignored}과목 모두 이미 추가되어 있어 건너뛰었습니다.`);
+    if (total === 1) {
+      notifyResult(`해당 과목은 이미 추가되어 있습니다.`);
+    } else {
+      notifyResult(`${ignored}과목 모두 이미 추가되어 있어 건너뛰었습니다.`);
+    }
   } else {
     notifyResult(`${added}과목을 추가했습니다. 중복된 ${ignored}과목은 건너뛰었습니다.`)
   }
