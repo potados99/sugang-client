@@ -40,11 +40,25 @@ function addSugangForm(courseId, memo) {
                 <input class="col-7 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
                 <input type="hidden" name="par_type" value="insert"> 
 
-                <!-- 삭제와 신청 버튼 -->
-                <button class="col-1 col-button plain-button" type="button" onclick="removeSugangForm('${courseId}')" style="min-width: 35px;">X</button>
-                <button class="col-2 col-button green-button" type="submit" style="min-width: 75px;">신청(새 창)</button>
+                <!-- 삭제 버튼 -->
+                <button 
+                    class="col-1 col-button plain-button" 
+                    type="button" 
+                    onclick="removeSugangForm('${courseId}')" 
+                    style="min-width: 35px;">
+                    X
+                </button>
+                
+                <!-- 신청 버튼 -->
+                <button 
+                    class="col-2 col-button green-button" 
+                    type="submit" 
+                    onclick="this.classList.replace('green-button', 'green-consumed-button')" 
+                    style="min-width: 75px;">
+                    신청(새 창)
+                </button>
             </form>
-    `;
+  `;
 
   /**
    * 요걸 div로 한번 감쌉니다.
@@ -94,5 +108,5 @@ function notifyResult(message) {
 
   setTimeout(() => {
     formResult.style.lineHeight = '0';
-  }, 3000);
+  }, 1500);
 }

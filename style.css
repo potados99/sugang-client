@@ -108,6 +108,12 @@ img {
   background-color: #4CAF50;
 }
 
+.green-consumed-button {
+  color: white;
+  background-color: #4CAF50;
+  opacity: 0.6;
+}
+
 .green-button:hover {
   background-color: #45a049;
 }
