@@ -193,8 +193,19 @@ img {
 .description {
   text-align: left;
   font-size: 14px;
-  margin-bottom: 16px;
   margin-left: 1px;
+}
+
+.safe-message {
+  text-align: left;
+  font-size: 14px;
+  margin-top: 6px;
+  margin-left: 1px;
+  color: #378d31;
+  overflow: hidden;
+
+  line-height: 0;
+  transition: line-height 0.3s linear;
 }
 
 .memo-pad {
@@ -266,4 +277,12 @@ img {
 @font-face {
   font-family: 'digital-7';
   src: url('digital-7.ttf');
+}
+
+/**
+ * Animated
+ */
+.opacity-transition {
+  opacity: 0;
+  transition: opacity 0.3s linear;
 }
