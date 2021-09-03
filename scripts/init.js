@@ -57,7 +57,7 @@ function restoreLoginForm() {
 }
 
 function prepareLoginForm() {
-  console.log('로그인 폼 준비중');
+  console.log('로그인 폼을 준비합니다.');
 
   /**
    * 로그인 폼의 액션(어디로 보낼지)은 맨 위 endpoints에 따라 달라질 수 있기 때문에
