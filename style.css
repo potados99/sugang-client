@@ -163,7 +163,7 @@ img {
   margin-left: 6px;
 }
 
-.col, .col-9, .col-8, .col-7, .col-4, .col-2, .col-1 {
+.col, .col-9, .col-8, .col-7, .col-6, .col-4, .col-3, .col-2, .col-1 {
   height: 47px;
 }
 
@@ -179,8 +179,16 @@ img {
   flex-grow: 7;
 }
 
+.col-6 {
+  flex-grow: 6;
+}
+
 .col-4 {
   flex-grow: 4;
+}
+
+.col-3 {
+  flex-grow: 3;
 }
 
 .col-2 {

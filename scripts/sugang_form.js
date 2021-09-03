@@ -37,7 +37,7 @@ function addSugangForm(courseId, memo) {
             <!-- 학수번호 폼 -->
             <form class="row" target="_blank" action="${endpoints.submit}" method="post">
                 <!-- 학수번호 필드 -->
-                <input class="col-7 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
+                <input class="col-6 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
                 <input type="hidden" name="par_type" value="insert"> 
 
                 <!-- 삭제 버튼 -->
@@ -51,7 +51,7 @@ function addSugangForm(courseId, memo) {
                 
                 <!-- 신청 버튼 -->
                 <button 
-                    class="col-2 col-button green-button" 
+                    class="col-3 col-button green-button" 
                     type="submit" 
                     onclick="this.classList.replace('green-button', 'green-consumed-button')" 
                     style="min-width: 75px;">
