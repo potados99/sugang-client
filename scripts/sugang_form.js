@@ -37,24 +37,22 @@ function addSugangForm(courseId, memo) {
             <!-- 학수번호 폼 -->
             <form class="row" target="_blank" action="${endpoints.submit}" method="post">
                 <!-- 학수번호 필드 -->
-                <input class="col-6 col-input" name="par_haksuNo" value="입력을 확인해 주세요!">
+                <input class="col-input" style="flex: 1" name="par_haksuNo" value="입력을 확인해 주세요!">
                 <input type="hidden" name="par_type" value="insert"> 
 
                 <!-- 삭제 버튼 -->
                 <button 
-                    class="col-1 col-button plain-button" 
+                    class="col-button plain-button" 
                     type="button" 
-                    onclick="removeSugangForm('${courseId}')" 
-                    style="min-width: 35px;">
+                    onclick="removeSugangForm('${courseId}')">
                     X
                 </button>
                 
                 <!-- 신청 버튼 -->
                 <button 
-                    class="col-3 col-button green-button" 
+                    class="col-button green-button" 
                     type="submit" 
-                    onclick="this.classList.replace('green-button', 'green-consumed-button')" 
-                    style="min-width: 75px;">
+                    onclick="this.classList.replace('green-button', 'green-consumed-button')">
                     신청(새 창)
                 </button>
             </form>
@@ -104,9 +102,9 @@ function notifyResult(message) {
   const formResult = document.getElementById('addFormResult')
 
   formResult.innerText = message;
-  formResult.style.lineHeight = '1.7';
+  formResult.style.lineHeight = '1.8';
 
   setTimeout(() => {
     formResult.style.lineHeight = '0';
-  }, 2000);
+  }, 2200);
 }

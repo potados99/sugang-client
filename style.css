@@ -89,6 +89,7 @@ img {
 }
 
 .col-input {
+  min-width: 0;
   width: inherit;
 }
 
@@ -143,7 +144,8 @@ img {
 
 .col-button {
   width: inherit;
-  padding: 0;
+  height: 47px;
+  padding: 12px;
 }
 
 
