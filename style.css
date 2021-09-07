@@ -250,6 +250,10 @@ img {
   font-family: 'digital-7', sans-serif;
 }
 
+#sugangFormRows {
+  margin-top: 12px;
+}
+
 
 /**
  * Sidebar layout

@@ -79,7 +79,7 @@ function prepareCourseIdsInput() {
   console.log('학수번호 입력 폼을 준비합니다.');
 
   /**
-   * 엔터가 눌렸을 때에 적절한 일(addCourseIdFormRows 호출)이 일어날 수 있게
+   * 엔터가 눌렸을 때에 적절한 일이 일어날 수 있게
    * 이벤트 리스너를 설정합니다.
    */
   document.getElementById('courseIdsInput').addEventListener('keypress', function(event) {

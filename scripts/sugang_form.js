@@ -80,7 +80,7 @@ function addSugangForm(courseId, memo) {
   /**
    * 만든 수강 폼을 DOM에 추가해줍니다.
    */
-  document.getElementById('courseIdFormRows').appendChild(newRowWrapper);
+  document.getElementById('sugangFormRows').appendChild(newRowWrapper);
 
   /**
    * 수강 폼을 fade-in 합니다.
