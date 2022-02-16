@@ -64,6 +64,18 @@ img {
   text-align: left;
 }
 
+.footer {
+  margin-top: 36px;
+  margin-bottom: 36px;
+}
+
+.footer-text {
+  text-align: center;
+  color: rgb(159, 159, 159);
+  font-size: 12px;
+  margin-top: 16px;
+}
+
 .separator {
   width: 100%;
   height: 1px;
